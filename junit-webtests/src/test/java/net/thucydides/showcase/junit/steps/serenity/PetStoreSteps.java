@@ -3,6 +3,11 @@ package net.thucydides.showcase.junit.steps.serenity;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.showcase.junit.model.Pet;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import static net.serenitybdd.rest.SerenityRest.rest;
@@ -18,15 +23,43 @@ public class PetStoreSteps {
     String jsonPet;
 
     @Step
+    public void when_do_something(Pet pet) {
+        this.pet = pet;
+        int id = Math.abs(new Random().nextInt());
+        Map<String, Object> jsonAsMap = new HashMap<>();
+        jsonAsMap.put("id", id);
+        jsonAsMap.put("name", pet.getName());
+        jsonAsMap.put("status", pet.getStatus());
+        jsonAsMap.put("photoUrls", Collections.emptyList());
+
+        rest().given().contentType("application/json")
+            .content(jsonAsMap).post("http://petstore.swagger.io/v2/pet");
+        this.jsonPet = "{\"id\": " + id + " , \"name\": \""
+            + pet.getName() + "\", \"photoUrls\": [], \"status\": \""
+            + pet.getStatus() + "\"}";
+        this.pet.setId(id);
+/*        this.pet = pet;
+        int id = Math.abs(new Random().nextInt());
+        this.jsonPet = "{\"id\": " + id + " , \"name\": \""
+            + pet.getName() + "\", \"photoUrls\": [], \"status\": \""
+            + pet.getStatus() + "\"}";
+
+        rest().given().contentType("application/json")
+            .content(jsonPet).post("http://petstore.swagger.io/v2/pet");
+
+        this.pet.setId(id);*/
+    }
+
+    @Step
     public void when_i_add_the_pet_to_the_store(Pet pet) {
         this.pet = pet;
         int id = Math.abs(new Random().nextInt());
         this.jsonPet = "{\"id\": " + id + " , \"name\": \""
-                + pet.getName() + "\", \"photoUrls\": [], \"status\": \""
-                + pet.getStatus() + "\"}";
+            + pet.getName() + "\", \"photoUrls\": [], \"status\": \""
+            + pet.getStatus() + "\"}";
 
         rest().given().contentType("application/json")
-                .content(jsonPet).post("http://petstore.swagger.io/v2/pet");
+            .content(jsonPet).post("http://petstore.swagger.io/v2/pet");
 
         this.pet.setId(id);
     }

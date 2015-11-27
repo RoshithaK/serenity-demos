@@ -1,6 +1,8 @@
 package net.thucydides.showcase.junit.steps.serenity;
 
 import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.photography.Photographer;
+import net.serenitybdd.core.photography.ScreenshotPhoto;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import net.thucydides.showcase.junit.model.ListingItem;
@@ -27,7 +29,9 @@ public class BuyerSteps extends ScenarioSteps {
     @Step
     public void searches_by_keyword(String keyword) {
         homePage.enterSearchTerms(keyword);
+
         homePage.search();
+
         homePage.dismissLocationMessage();
     }
 

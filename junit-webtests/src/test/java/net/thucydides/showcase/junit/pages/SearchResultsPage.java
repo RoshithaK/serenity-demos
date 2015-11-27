@@ -43,7 +43,7 @@ public class SearchResultsPage extends PageObject {
         List<WebElementFacade> listingCards = findAll(By.cssSelector(".listing-card:nth-child(" + listingNumber + ")"));
         WebElementFacade listingCard = listingCards.get(0);
         String name = listingCard.findBy(".card-meta-row").getText();
-        double price = Double.parseDouble(listingCard.findBy(".card-price").getText().split("\\s")[0].replace("$", "")
+        double price = Double.parseDouble(listingCard.findBy(".card-price").getText().trim().split("\\s")[0].replace("$", "")
                 .replace("€", "")
                 .replace(",", ""));
 
