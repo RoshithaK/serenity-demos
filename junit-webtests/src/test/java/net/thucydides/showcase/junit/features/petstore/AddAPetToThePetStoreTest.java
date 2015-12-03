@@ -2,6 +2,7 @@ package net.thucydides.showcase.junit.features.petstore;
 
 
 import net.serenitybdd.junit.runners.SerenityRunner;
+import net.thucydides.core.annotations.Issue;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.showcase.junit.model.Pet;
 import net.thucydides.showcase.junit.steps.serenity.PetStoreSteps;
@@ -15,6 +16,7 @@ public class AddAPetToThePetStoreTest {
     PetStoreSteps petStore;
 
     @Test
+    @Issue("934")
     public void shouldBeAbleToAddPetsToAStore() {
 
         Pet fido = new Pet("available","fido");
@@ -25,6 +27,7 @@ public class AddAPetToThePetStoreTest {
     }
 
     @Test
+    @Issue("#{934}")
     public void shouldBeAbleDeletePetsFromAStore() {
 
         Pet fido = new Pet("available","fido");

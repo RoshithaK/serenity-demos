@@ -26,14 +26,14 @@ public class PetStoreSteps {
                 + pet.getStatus() + "\"}";
 
         rest().given().contentType("application/json")
-                .content(jsonPet).post("http://petstore.swagger.io/v2/pet");
+                .content(jsonPet).log().all().post("http://petstore.swagger.io/v2/pet");
 
         this.pet.setId(id);
     }
 
     @Step
     public void the_pets_should_be_available() {
-        rest().get("http://petstore.swagger.io/v2/pet/{id}", pet.getId())
+        rest().auth().none().get("http://petstore.swagger.io/v2/pet/{id}", pet.getId())
                     .then().statusCode(200)
                     .and().body("name", equalTo(pet.getName()));
     }
